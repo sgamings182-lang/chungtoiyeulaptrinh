@@ -308,7 +308,7 @@ main_button = tkinter.Button(bottom_frame, text="CALCULATOR", command=calculator
 
 button_converter = tkinter.Button(bottom_frame, text=" CONVERTER ", command=converter.open_converter, 
                              bg="#4CAF50", fg="white", padx=100, pady=10)
-button_graph = tkinter.Button(bottom_frame, text=" CONVERTER ", command=graph.open_graph, 
+button_graph = tkinter.Button(bottom_frame, text=" DIAGRAM ", command=graph.open_graph, 
                              bg="#4CAF50", fg="white", padx=100, pady=10)
 main_button.grid(row=1, column=0, padx=20, pady=10, sticky="n")
 button_converter.grid(row=2, column= 0, padx=20, pady=10, sticky="n")
