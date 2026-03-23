@@ -2,6 +2,9 @@ import tkinter
 import turtle
 from time import sleep
 import math
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider, Button
 
 screen = turtle.Screen()
 screen.setup(1200, 900)
@@ -33,6 +36,7 @@ t.write("Fomo", align="center", font=("Arial", 80, "italic bold"))
 
 sleep(2)
 t.hideturtle()
+"-------------------------------------------------------------------------------------------------------------------------"
 class calculator():
     def open_calculator():
         button_values = [
@@ -217,18 +221,97 @@ class converter():
 
         update_units()
         root.mainloop()
+class graph():
+    def open_graph():
+        
+        x = np.linspace(-6, 6, 1000)
+        a_init, b_init, c_init, d_init = 1.0, 0.0, 0.0, 0.0
+        fig, ax = plt.subplots(figsize=(10, 8))
+        plt.subplots_adjust(bottom=0.35)
+        line, = ax.plot(x, a_init*x**3 + b_init*x**2 + c_init*x + d_init, 
+                        lw=2.5, color='#2c3e50', label='$y = ax^3 + bx^2 + cx + d$')
+        
+        ax.spines['bottom'].set_position('zero')
+        ax.spines['left'].set_position('zero')   
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        
+        ax.plot(1, 0, ">k", transform=ax.get_yaxis_transform(), clip_on=False)
+        ax.plot(0, 1, "^k", transform=ax.get_xaxis_transform(), clip_on=False) 
+
+        ax.set_xlabel('x', loc='right', fontsize=12, style='italic')
+        ax.set_ylabel('y', loc='top', rotation=0, fontsize=12, style='italic', labelpad=15)
+
+        ax.set_xlim(-6, 6)
+        ax.set_ylim(-50, 50) 
+        ax.grid(True, linestyle=':', alpha=0.6)
+        ax.legend(loc='upper left', fontsize=11)
+        ax.set_title('Đồ Thị Hàm Số Bậc 3 Tương Tác', fontsize=14, fontweight='bold', pad=20)
+
+        slider_left = 0.15 
+        slider_width = 0.65  
+        slider_height = 0.03 
+        gap = 0.01           
+
+        ax_a = plt.axes([slider_left, 0.18, slider_width, slider_height])
+        ax_b = plt.axes([slider_left, 0.18 - slider_height - gap, slider_width, slider_height])
+        ax_c = plt.axes([slider_left, 0.18 - 2*(slider_height + gap), slider_width, slider_height])
+        ax_d = plt.axes([slider_left, 0.18 - 3*(slider_height + gap), slider_width, slider_height])
+
+        s_a = Slider(ax_a, 'Hệ số $a$', -20.0, 20.0, valinit=a_init, color='#e74c3c')
+        s_b = Slider(ax_b, 'Hệ số $b$', -50.0, 50.0, valinit=b_init, color='#3498db')
+        s_c = Slider(ax_c, 'Hệ số $c$', -100.0, 100.0, valinit=c_init, color='#2ecc71')
+        s_d = Slider(ax_d, 'Hệ số $d$', -200.0, 200.0, valinit=d_init, color='#9b59b6')
+
+        def update(val):
+  
+            a = s_a.val
+            b = s_b.val
+            c = s_c.val
+            d = s_d.val
+
+            line.set_ydata(a*x**3 + b*x**2 + c*x + d)
+    
+            fig.canvas.draw_idle()
+
+        s_a.on_changed(update)
+        s_b.on_changed(update)
+        s_c.on_changed(update)
+        s_d.on_changed(update)
+
+        ax_reset = plt.axes([0.85, 0.02, 0.1, 0.04])
+        button_reset = Button(ax_reset, 'Reset', color='#bdc3c7', hovercolor='#95a5a6')
+
+        def reset(event):
+            s_a.reset()
+            s_b.reset()
+            s_c.reset()
+            s_d.reset()
+        button_reset.on_clicked(reset)
+
+        plt.show()
+
 root = tkinter.Tk()
 root.title("Main Menu")
 root.geometry("7680x4320")
 
-welcome_label = tkinter.Label(root, text="Welcome to Multi-Matical", pady=20, font = ("Arial", 20, "bold"),)
+top_frame = tkinter.Frame(root)
+top_frame.pack()
+welcome_label = tkinter.Label(top_frame, text="Welcome to Multi-Matical", pady=20, font = ("Arial", 20, "bold"))
 welcome_label.pack()
 
-main_button = tkinter.Button(root, text="CALCULATOR", command=calculator.open_calculator, 
+bottom_frame = tkinter.Frame(root, bg="white")
+bottom_frame.pack(side="top", fill="both", expand=True)
+
+main_button = tkinter.Button(bottom_frame, text="CALCULATOR", command=calculator.open_calculator, 
                              bg="#4CAF50", fg="white", padx=100, pady=10)
-button_converter = tkinter.Button(root, text=" CONVERTER ", command=converter.open_converter, 
+
+button_converter = tkinter.Button(bottom_frame, text=" CONVERTER ", command=converter.open_converter, 
                              bg="#4CAF50", fg="white", padx=100, pady=10)
-main_button.pack()
-button_converter.pack()
-t.hideturtle()
+button_graph = tkinter.Button(bottom_frame, text=" CONVERTER ", command=graph.open_graph, 
+                             bg="#4CAF50", fg="white", padx=100, pady=10)
+main_button.grid(row=1, column=0, padx=20, pady=10, sticky="n")
+button_converter.grid(row=2, column= 0, padx=20, pady=10, sticky="n")
+button_graph.grid(row=3, column= 0, padx=20, pady=10, sticky="n")
+
 root.mainloop()
