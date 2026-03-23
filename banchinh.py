@@ -246,7 +246,7 @@ class graph():
         ax.set_ylim(-50, 50) 
         ax.grid(True, linestyle=':', alpha=0.6)
         ax.legend(loc='upper left', fontsize=11)
-        ax.set_title('Đồ Thị Hàm Số Bậc 3 Tương Tác', fontsize=14, fontweight='bold', pad=20)
+        ax.set_title('Diagram', fontsize=14, fontweight='bold', pad=20)
 
         slider_left = 0.15 
         slider_width = 0.65  
@@ -258,10 +258,10 @@ class graph():
         ax_c = plt.axes([slider_left, 0.18 - 2*(slider_height + gap), slider_width, slider_height])
         ax_d = plt.axes([slider_left, 0.18 - 3*(slider_height + gap), slider_width, slider_height])
 
-        s_a = Slider(ax_a, 'Hệ số $a$', -20.0, 20.0, valinit=a_init, color='#e74c3c')
-        s_b = Slider(ax_b, 'Hệ số $b$', -50.0, 50.0, valinit=b_init, color='#3498db')
-        s_c = Slider(ax_c, 'Hệ số $c$', -100.0, 100.0, valinit=c_init, color='#2ecc71')
-        s_d = Slider(ax_d, 'Hệ số $d$', -200.0, 200.0, valinit=d_init, color='#9b59b6')
+        s_a = Slider(ax_a, 'coefficient $a$', -20.0, 20.0, valinit=a_init, color='#e74c3c')
+        s_b = Slider(ax_b, 'coefficient $b$', -50.0, 50.0, valinit=b_init, color='#3498db')
+        s_c = Slider(ax_c, 'coefficient $c$', -100.0, 100.0, valinit=c_init, color='#2ecc71')
+        s_d = Slider(ax_d, 'coefficient $d$', -200.0, 200.0, valinit=d_init, color='#9b59b6')
 
         def update(val):
   
