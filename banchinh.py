@@ -881,10 +881,63 @@ class graph_3D():
             
         draw_scene(vA_init, vB_init, P_A, P_B, P_C, P_D, S_a, S_b, S_c, S_R)
         plt.show()
+class colorpicker():
+    def open_picker():
+        cp_window = tkinter.Toplevel()
+        cp_window.title("color studio")
+        cp_window.geometry("1000x650")
+        cp_window.configure(bg="#2c3e50")
+
+        r_var = tkinter.IntVar(value=100)
+        g_var = tkinter.IntVar(value=100)
+        b_var = tkinter.IntVar(value=100)
+
+        color_display = tkinter.Frame(cp_window , width=350, height= 80, relief="sunken", bd=5)
+        color_display.pack(pady=20)
+
+        hex_entry = tkinter.Entry(cp_window, font=("consolas", 14), justify="center")
+        hex_entry.pack(pady=10)
+
+        def update_color(*args):
+            
+            # Trong Python, *args là một cách nói với hàm rằng: "Tôi không biết người ta sẽ truyền bao nhiêu tham số vào đây, nên cậu cứ gom tất cả chúng lại thành một cái danh sách (tuple) cho tôi."
+            # *: Dấu sao này là toán giả "unpacking".
+            # args: Chỉ là cái tên (viết tắt của arguments). Cậu đặt là *keo_ngot hay *thong_tin cũng được, nhưng dân lập trình hay dùng *args cho đúng chuẩn. 
+            
+            try:
+                # Lấy giá trị từ các biến IntVar
+                r, g, b = [max(0, min(255, v.get())) for v in (r_var, g_var, b_var)]
+                hex_val = f"#{r:02x}{g:02x}{b:02x}".upper()
+                color_display.configure(bg=hex_val)
+                hex_entry.delete(0, tkinter.END)
+                hex_entry.insert(0, hex_val)
+            except: 
+                pass
+
+        def CreateRow(label, var, color): # Sửa lại tên hàm cho đúng
+            f = tkinter.Frame(cp_window, bg="#2c3e50")
+            f.pack(fill="x", padx=30, pady=5)
+            tkinter.Label(f, text=label, fg=color, bg="#2c3e50", font=("Arial", 10, "bold"), width=5).pack(side="left")
+            
+            # Thanh trượt Scale
+            scale = tkinter.Scale(f, from_=0, to=255, orient="horizontal", variable=var, 
+                                 bg="#2c3e50", fg="white", highlightthickness=0, command=update_color)
+            scale.pack(side="left", fill="x", expand=True, padx=10)
+            
+            # Ô nhập số
+            entry = tkinter.Entry(f, textvariable=var, width=5)
+            entry.pack(side="right")
+            var.trace_add("write", update_color)
+
+        CreateRow("Red", r_var, "#ff1900")
+        CreateRow("Green", g_var, "#00ff6a")
+        CreateRow("Blue", b_var, "#001aff")
+
+        update_color()
 
 root = tkinter.Tk()
 root.title("Main Menu")
-root.state('zoomed')
+root.attributes('-zoomed', True)
                     
 def set_dynamic_background(root_window, image_path):
     try:
@@ -918,7 +971,7 @@ top_frame = tkinter.Frame(root, bg="black")
 top_frame.place(relx=0.5, y=50, anchor="n") 
 
 welcome_label = tkinter.Label(top_frame, text="Welcome to Multi-Matical", 
-                              font=("Arial", 20, "bold"), fg="white", bg="#004db8")
+                              font=("Arial", 20, "bold"), fg="white", bg="black")
 welcome_label.pack()
 
 button_frame = tkinter.Frame(root, bg="")
@@ -938,9 +991,13 @@ button_graph3d = tkinter.Button(root, text="  3D DIAGRAM  ", command=graph_3D.op
 button_snake = tkinter.Button(root, text="  Snake.io  ", command=snake_game.open_snake,
                              bg="#ff0000", font=("Arial", 12, "bold"), width=15, pady=10)
 
+button_color = tkinter.Button(root, text="COLOR TOOLS", command=colorpicker.open_picker,
+                              bg="#4CAF50", font=("Arial", 12, "bold"), width=20, pady=10)
+
 main_button.place(x=50, y=150)
 button_converter.place(x=50, y=230)
 button_graph.place(x=50, y=310)
 button_graph3d.place(x=50, y=390)
+button_color.place(x=50, y=470)
 button_snake.place(relx=1.0, y=150, anchor="ne", x=-50)
 root.mainloop()
