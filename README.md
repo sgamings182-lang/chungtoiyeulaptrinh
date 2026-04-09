@@ -41,10 +41,11 @@ To run Multi-Matical Supporter, your computer needs to have **Python 3.8+** and 
 
 ## User Manual
 
-Run the main source code file using the command:
-```bash
-python main.py
-When the main menu appears, simply click on the corresponding buttons (CALCULATOR, CONVERTER, DIAGRAM, 3D DIAGRAM, Snake.io) to open the feature modules as independent windows.
+Run the main source code file using the comman:
+
+    ```bash
+    python main.py
+    When the main menu appears, simply click on the corresponding buttons (CALCULATOR, CONVERTER, DIAGRAM, 3D DIAGRAM, Snake.io) to open the feature modules as independent windows.
 Keyboard controls in Snake.io:
 
 Player 1: Use the W, A, S, D keys to move.
