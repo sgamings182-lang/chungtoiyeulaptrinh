@@ -806,7 +806,7 @@ class graph_3D():
                 
                 title_text = f"Không gian Hỗn hợp | Cầu & Phẳng: {status} (d={d:.2f}, R={R:.1f})"
             else:
-                title_text = "Hệ số A, B, C không thể đồng thời bằng 0!"
+                title_text = "The coefficients A, B, and C cannot all be equal to 0 at the same time!"
 
             ax.set_xlim([-12, 12]); ax.set_ylim([-12, 12]); ax.set_zlim([-12, 12])
             ax.set_xlabel('Trục X'); ax.set_ylabel('Trục Y'); ax.set_zlabel('Trục Z')
@@ -848,10 +848,10 @@ class graph_3D():
                     except ValueError:
                         self.text.set_val(f"{self.slider.val:.1f}")
 
-        plt.figtext(0.05, 0.32, 'Vectơ A', weight='bold', color='blue')
-        plt.figtext(0.28, 0.32, 'Vectơ B', weight='bold', color='green')
-        plt.figtext(0.52, 0.32, 'Mặt phẳng (Ax+By+Cz+D=0)', weight='bold', color='darkcyan')
-        plt.figtext(0.77, 0.32, 'Mặt cầu (Tâm I, Bán kính R)', weight='bold', color='maroon')
+        plt.figtext(0.05, 0.32, 'Vector A', weight='bold', color='blue')
+        plt.figtext(0.28, 0.32, 'Vector B', weight='bold', color='green')
+        plt.figtext(0.52, 0.32, 'Flat (Ax+By+Cz+D=0)', weight='bold', color='darkcyan')
+        plt.figtext(0.77, 0.32, 'Shpere (center I, radius R)', weight='bold', color='maroon')
 
         y_pos = [0.25, 0.20, 0.15, 0.10]
 
@@ -918,7 +918,7 @@ top_frame = tkinter.Frame(root, bg="black")
 top_frame.place(relx=0.5, y=50, anchor="n") 
 
 welcome_label = tkinter.Label(top_frame, text="Welcome to Multi-Matical", 
-                              font=("Arial", 20, "bold"), fg="white", bg="black")
+                              font=("Arial", 20, "bold"), fg="white", bg="#004db8")
 welcome_label.pack()
 
 button_frame = tkinter.Frame(root, bg="")
