@@ -767,9 +767,9 @@ class graph_3D():
             ax.cla()
             
             Sum = vA + vB
-            ax.quiver(0, 0, 0, vA[0], vA[1], vA[2], color='blue', linewidth=2, arrow_length_ratio=0.1, label='Vectơ A')
-            ax.quiver(0, 0, 0, vB[0], vB[1], vB[2], color='green', linewidth=2, arrow_length_ratio=0.1, label='Vectơ B')
-            ax.quiver(0, 0, 0, Sum[0], Sum[1], Sum[2], color='red', linewidth=2.5, arrow_length_ratio=0.1, label='Tổng A+B')
+            ax.quiver(0, 0, 0, vA[0], vA[1], vA[2], color='blue', linewidth=2, arrow_length_ratio=0.1, label='Vector A')
+            ax.quiver(0, 0, 0, vB[0], vB[1], vB[2], color='green', linewidth=2, arrow_length_ratio=0.1, label='Vector B')
+            ax.quiver(0, 0, 0, Sum[0], Sum[1], Sum[2], color='red', linewidth=2.5, arrow_length_ratio=0.1, label='Sum A+B')
             ax.plot([vA[0], Sum[0]], [vA[1], Sum[1]], [vA[2], Sum[2]], color='green', linestyle='--', alpha=0.6)
             ax.plot([vB[0], Sum[0]], [vB[1], Sum[1]], [vB[2], Sum[2]], color='blue', linestyle='--', alpha=0.6)
 
@@ -794,22 +794,22 @@ class graph_3D():
                 U, V = np.meshgrid(np.linspace(0, 2*np.pi, 20), np.linspace(0, np.pi, 15))
                 Xs, Ys, Zs = a + R*np.cos(U)*np.sin(V), b + R*np.sin(U)*np.sin(V), c + R*np.cos(V)
                 
-                if abs(d-R) < 0.05: color_s, status = 'green', "TIẾP XÚC"
-                elif d < R:         color_s, status = 'red', "CẮT NHAU"
-                else:               color_s, status = 'gray', "RỜI NHAU"
+                if abs(d-R) < 0.05: color_s, status = 'green', "CONTACT"
+                elif d < R:         color_s, status = 'red', "CUTTING EACH OTHER"
+                else:               color_s, status = 'gray', "SEPARATE"
                 ax.plot_wireframe(Xs, Ys, Zs, color=color_s, alpha=0.3)
                 
                 H = np.array([a, b, c]) - ((A*a + B*b + C*c + D) / np.sum(n_vec**2)) * n_vec
-                ax.scatter(a, b, c, color='black', s=50, label='Tâm I')
-                ax.scatter(*H, color='red', s=40, zorder=5, label='Hình chiếu H')
+                ax.scatter(a, b, c, color='black', s=50, label='Center I')
+                ax.scatter(*H, color='red', s=40, zorder=5, label='Projection H')
                 ax.plot([a, H[0]], [b, H[1]], [c, H[2]], 'k--', alpha=0.6, linewidth=1.5)
                 
-                title_text = f"Không gian Hỗn hợp | Cầu & Phẳng: {status} (d={d:.2f}, R={R:.1f})"
+                title_text = f"Mixed Spaces | Spherical and Flat: {status} (d={d:.2f}, R={R:.1f})"
             else:
                 title_text = "The coefficients A, B, and C cannot all be equal to 0 at the same time!"
 
             ax.set_xlim([-12, 12]); ax.set_ylim([-12, 12]); ax.set_zlim([-12, 12])
-            ax.set_xlabel('Trục X'); ax.set_ylabel('Trục Y'); ax.set_zlabel('Trục Z')
+            ax.set_xlabel('X axis'); ax.set_ylabel('Y axis'); ax.set_zlabel('Z axis')
             ax.set_title(title_text, weight='bold')
             
             handles, labels = ax.get_legend_handles_labels()
