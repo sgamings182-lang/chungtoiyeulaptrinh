@@ -186,7 +186,7 @@ class converter():
                     
                 label_result.config(text=f"result: {res_str} {u_to}")
             except Exception as e:
-                messagebox.showerror("Error!", "Invalid value!")
+                TextBox.showerror("Error!", "Invalid value!")
 
         root = tkinter.Toplevel() 
         root.title("Physics Ultra Converter")
