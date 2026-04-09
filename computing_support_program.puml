@@ -6,38 +6,35 @@ skinparam shadowing false
 title Class Diagram - Multi-Matical Supporter system
 
 class MainMenu {
-  - root: tkinter.Tk
-  - top_frame: tkinter.Frame
-  - button_frame: tkinter.Frame
-  + set_dynamic_background(root_window, image_path)
+  - learning and computing support program
   + start_app()
 }
 
 class calculator {
-  + {static} open_calculator()
+  + {static} open a basic calculus for the user\n to make many caculations.
 }
 
 class converter {
-  + {static} open_converter()
+  + {static} open a converter that the user\n can easily convert between coefficients
 }
 
-class graph {
-  + {static} open_graph()
+class Diagram {
+  + {static} open a simulation of a diagram to show\n the value of a function.
 }
 
-class graph_3D {
-  + {static} open_graph3d()
+class Diagram_3D {
+  + {static} help the students to image the coordinary3D\n system in 3D when they draw vector or shpere\n function
 }
 
 class snake_game {
-  + {static} open_snake()
+  + {static} a game help student to entertain after learning\n which is not cause addicted for student
 }
 
 ' Quan hệ phụ thuộc (Dependency) từ Menu chính gọi đến các module chức năng
 MainMenu ..> calculator : <<use>>
 MainMenu ..> converter : <<use>>
-MainMenu ..> graph : <<use>>
-MainMenu ..> graph_3D : <<use>>
+MainMenu ..> Diagram : <<use>>
+MainMenu ..> Diagram_3D : <<use>>
 MainMenu ..> snake_game : <<use>>
 
 note bottom of MainMenu
@@ -50,8 +47,8 @@ end note
 note "These classes represent independent functional modules." as N1
 calculator .. N1
 converter .. N1
-graph .. N1
-graph_3D .. N1
+Diagram .. N1
+Diagram_3D .. N1
 snake_game .. N1
 
 @enduml
