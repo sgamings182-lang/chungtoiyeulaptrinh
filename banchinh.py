@@ -884,7 +884,7 @@ class graph_3D():
 class colorpicker():
     def open_picker():
         cp_window = tkinter.Toplevel()
-        cp_window.title("color studio")
+        cp_window.title("color tools")
         cp_window.geometry("1000x650")
         cp_window.configure(bg="#2c3e50")
 
