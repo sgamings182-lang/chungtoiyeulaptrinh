@@ -26,6 +26,10 @@ class Diagram_3D {
   + {static} help the students to image the coordinary3D\n system in 3D when they draw vector or shpere\n function
 }
 
+class color_tools {
+  + {static} help the student to mix the color and get the HEX and RGB code for coding and creation
+}
+
 class snake_game {
   + {static} a game help student to entertain after learning\n which is not cause addicted for student
 }
@@ -36,6 +40,7 @@ MainMenu ..> converter : <<use>>
 MainMenu ..> Diagram : <<use>>
 MainMenu ..> Diagram_3D : <<use>>
 MainMenu ..> snake_game : <<use>>
+MainMenu ..> color_tools : <<use>>
 
 note bottom of MainMenu
   The main Tkinter interface acts
@@ -50,5 +55,6 @@ converter .. N1
 Diagram .. N1
 Diagram_3D .. N1
 snake_game .. N1
+color_tools .. N1
 
 @enduml
