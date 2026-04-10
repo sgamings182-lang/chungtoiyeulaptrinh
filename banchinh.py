@@ -186,7 +186,7 @@ class converter():
                     
                 label_result.config(text=f"result: {res_str} {u_to}")
             except Exception as e:
-                TextBox.showerror("Error!", "Invalid value!")
+                messagebox.showerror("Error!", "Invalid value!")
 
         root = tkinter.Toplevel() 
         root.title("Physics Ultra Converter")
@@ -308,21 +308,27 @@ class snake_game():
         import pygame
         from random import randint
         pygame.init()
+        pygame.mixer.init()
+
+        pygame.mixer.music.load(r"D:\vscode\snake.io\Waterdrop.wav")
+
+        pygame.mixer.music.set_volume(1)
+
+        pygame.mixer.music.play(-1)
 
         screen = pygame.display.set_mode((1200, 900))
 
         IMG_DIR = r"D:\vscode\snake.io\\"
-        #Head
         head_up = pygame.image.load(IMG_DIR + "snake_head_up.png").convert_alpha()
         head_down = pygame.image.load(IMG_DIR + "snake_head_down.png").convert_alpha()
         head_left = pygame.image.load(IMG_DIR + "snake_head_left.png").convert_alpha()
         head_right = pygame.image.load(IMG_DIR + "snake_head_right.png").convert_alpha()
-                # 2. Tail
+                # 2. Tải các hướng của ĐUÔI
         tail_up = pygame.image.load(IMG_DIR + "snake_tail_up.png").convert_alpha()
         tail_down = pygame.image.load(IMG_DIR + "snake_tail_down.png").convert_alpha()
         tail_left = pygame.image.load(IMG_DIR + "snake_tail_left.png").convert_alpha()
         tail_right = pygame.image.load(IMG_DIR + "snake_tail_right.png").convert_alpha()
-                # 3. Body and cross
+                # 3. Tải THÂN thẳng và CUA GÓC
         body_vertical = pygame.image.load(IMG_DIR + "snake_body_vertical.png").convert_alpha()
         body_horizontal = pygame.image.load(IMG_DIR + "snake_body_horizontal.png").convert_alpha()
         body_tl = pygame.image.load(IMG_DIR + "body_tl.png").convert_alpha() # Cua góc trên-trái
@@ -330,23 +336,23 @@ class snake_game():
         body_bl = pygame.image.load(IMG_DIR + "body_bl.png").convert_alpha() # Cua góc dưới-trái
         body_br = pygame.image.load(IMG_DIR + "body_br.png").convert_alpha() # Cua góc dưới-phải
 
-        #Head2
+
         head_up2 = pygame.image.load(IMG_DIR + "snake_head_up2.png").convert_alpha()
         head_down2 = pygame.image.load(IMG_DIR + "snake_head_down2.png").convert_alpha()
         head_left2 = pygame.image.load(IMG_DIR + "snake_head_left2.png").convert_alpha()
         head_right2 = pygame.image.load(IMG_DIR + "snake_head_right2.png").convert_alpha()
-                # 2. Tail2
+                # 2. Tải các hướng của ĐUÔI
         tail_up2 = pygame.image.load(IMG_DIR + "snake_tail_up2.png").convert_alpha()
         tail_down2 = pygame.image.load(IMG_DIR + "snake_tail_down2.png").convert_alpha()
         tail_left2 = pygame.image.load(IMG_DIR + "snake_tail_left2.png").convert_alpha()
         tail_right2 = pygame.image.load(IMG_DIR + "snake_tail_right2.png").convert_alpha()
-                # 3. Body and cross2
+                # 3. Tải THÂN thẳng và CUA GÓC
         body_vertical2 = pygame.image.load(IMG_DIR + "snake_body_vertical2.png").convert_alpha()
         body_horizontal2 = pygame.image.load(IMG_DIR + "snake_body_horizontal2.png").convert_alpha()
-        body_tl2 = pygame.image.load(IMG_DIR + "body_tl2.png").convert_alpha()
-        body_tr2 = pygame.image.load(IMG_DIR + "body_tr2.png").convert_alpha()
-        body_bl2 = pygame.image.load(IMG_DIR + "body_bl2.png").convert_alpha()
-        body_br2 = pygame.image.load(IMG_DIR + "body_br2.png").convert_alpha()
+        body_tl2 = pygame.image.load(IMG_DIR + "body_tl2.png").convert_alpha() # Cua góc trên-trái
+        body_tr2 = pygame.image.load(IMG_DIR + "body_tr2.png").convert_alpha() # Cua góc trên-phải
+        body_bl2 = pygame.image.load(IMG_DIR + "body_bl2.png").convert_alpha() # Cua góc dưới-trái
+        body_br2 = pygame.image.load(IMG_DIR + "body_br2.png").convert_alpha() # Cua góc dưới-phải
 
         apple_img = pygame.image.load(r"D:\vscode\snake.io\apple.png").convert_alpha()
         apple_img = pygame.transform.scale(apple_img, (30, 30))
@@ -357,6 +363,7 @@ class snake_game():
         bolt_img = pygame.image.load(r"D:\vscode\snake.io\bolt.png").convert_alpha()
         bolt_img = pygame.transform.scale(bolt_img, (30, 30))
 
+        CELL_SIZE = 30
         head_up = pygame.transform.scale(head_up, (30, 30))
         head_down = pygame.transform.scale(head_down, (30, 30))
         head_left = pygame.transform.scale(head_left, (30, 30))
@@ -464,32 +471,32 @@ class snake_game():
             for index, segment in enumerate(snakes):
                 rect = pygame.Rect(segment[0]*30, segment[1]*30, 30, 30)
                         
-                        # 1. Draw head
+                      
                 if index == len(snakes) - 1:
                     if direction == "up": screen.blit(head_up, rect)
                     elif direction == "down": screen.blit(head_down, rect)
                     elif direction == "left": screen.blit(head_left, rect)
                     elif direction == "right": screen.blit(head_right, rect)
                         
-                        # 2. Draw tail
+                    
                 elif index == 0:
-                            
+                        
                     next_seg = snakes[1]
-                            
+                           
                     if next_seg[0] > segment[0]: screen.blit(tail_right, rect) 
                     elif next_seg[0] < segment[0]: screen.blit(tail_left, rect)
                     elif next_seg[1] > segment[1]: screen.blit(tail_down, rect)
                     elif next_seg[1] < segment[1]: screen.blit(tail_up, rect)
 
-                        # 3. Draw body
                 else:
-                    previous_seg = snakes[index - 1]
-                    next_seg = snakes[index + 1]    
+                    previous_seg = snakes[index - 1] 
+                    next_seg = snakes[index + 1]     
 
                     prev_rel = (previous_seg[0] - segment[0], previous_seg[1] - segment[1])
                     next_rel = (next_seg[0] - segment[0], next_seg[1] - segment[1])
-                            
+
                     dirs = {prev_rel, next_rel}
+
                     if previous_seg[0] == next_seg[0]:
                         screen.blit(body_vertical, rect)
                     elif previous_seg[1] == next_seg[1]:
@@ -498,22 +505,25 @@ class snake_game():
                     else:
                         if dirs == {(0, -1), (-1, 0)}:
                             screen.blit(body_tl, rect)
+                                    
                         elif dirs == {(0, -1), (1, 0)}:
                             screen.blit(body_tr, rect)
+                                    
                         elif dirs == {(0, 1), (-1, 0)}:
                             screen.blit(body_bl, rect)
+                                    
                         elif dirs == {(0, 1), (1, 0)}:
                             screen.blit(body_br, rect)
                 
             for index, segment in enumerate(snakes2):
                 rect = pygame.Rect(segment[0]*30, segment[1]*30, 30, 30)
                         
-                if index == len(snakes2) - 1:
+                if index == len(snakes2) - 1: 
                     if direction2 == "Up": screen.blit(head_up2, rect)
                     elif direction2 == "Down": screen.blit(head_down2, rect)
                     elif direction2 == "Left": screen.blit(head_left2, rect)
                     elif direction2 == "Right": screen.blit(head_right2, rect)
-
+                        
                 elif index == 0:
                     next_seg = snakes2[1]
                     if next_seg[0] > segment[0]: screen.blit(tail_right2, rect) 
@@ -534,7 +544,7 @@ class snake_game():
                         screen.blit(body_vertical2, rect)
                     elif previous_seg[1] == next_seg[1]:
                         screen.blit(body_horizontal2, rect)
-
+                                
                     else:
                         if dirs == {(0, -1), (-1, 0)}:
                             screen.blit(body_tl2, rect)
@@ -568,6 +578,8 @@ class snake_game():
                 if apples_eaten % 10 == 0:
                     rainbow_apple = [randint(0, 39), randint(0, 29)]
                     rainbow_active = True
+                pygame.mixer.music.load(r"D:\vscode\snake.io\apple_bite.ogg")  
+                pygame.mixer.music.play(1)
                     
             if (snakes[-1][0] == freeze[0] and snakes[-1][1] == freeze[1]) or (snakes[-1][0] == freeze2[0] and snakes[-1][1] == freeze2[1]):
                 if snakes[-1][0] == freeze[0]:
@@ -575,7 +587,9 @@ class snake_game():
                 else:
                     freeze2 = [randint(0, 39), randint(0, 29)]
                 is_frozen1 = True
-                freeze_time1 = current_time   
+                freeze_time1 = current_time 
+                pygame.mixer.music.load(r"D:\vscode\snake.io\freeze.wav")  
+                pygame.mixer.music.play(1)
             if (snakes[-1][0] == bolt[0] and snakes[-1][1] == bolt[1]) or (snakes[-1][0] == bolt2[0] and snakes[-1][1] == bolt2[1]):
                 if snakes[-1][0] == bolt[0]:
                     bolt = [randint(0, 39), randint(0, 29)]
@@ -603,14 +617,13 @@ class snake_game():
                     if len(snakes) > 1:
                         snakes.pop(0)
                 score -= 5
+                pygame.mixer.music.load(r"D:\vscode\snake.io\\8bit_bomb_explosion.wav")  
+                pygame.mixer.music.play(1)
             for i in range(len(snakes2) -1):
                 if snakes[-1][0] == snakes2[i][0] and snakes[-1][1] == snakes2[i][1]:
                     if len(snakes) > 1:
                         snakes.pop(0)
                     score -= 1
-            
-                
-
                 
             if snakes2[-1][0] == apple [0] and snakes2[-1][1] == apple [1]:
                 snakes2.insert(0,[tail_x2,tail_y2])
@@ -620,6 +633,8 @@ class snake_game():
                 if apples_eaten % 10 == 0:
                     rainbow_apple = [randint(0, 39), randint(0, 29)]
                     rainbow_active = True
+                pygame.mixer.music.load(r"D:\vscode\snake.io\apple_bite.ogg")  
+                pygame.mixer.music.play(1)
                 
             if (snakes2[-1][0] == freeze[0] and snakes2[-1][1] == freeze[1]) or (snakes2[-1][0] == freeze2[0] and snakes2[-1][1] == freeze2[1]):
                 if snakes2[-1][0] == freeze[0]:
@@ -628,6 +643,8 @@ class snake_game():
                     freeze2 = [randint(0, 39), randint(0, 29)]
                 is_frozen2 = True
                 freeze_time2 = current_time
+                pygame.mixer.music.load(r"D:\vscode\snake.io\freeze.wav")  
+                pygame.mixer.music.play(1)
                 
             if (snakes2[-1][0] == bolt[0] and snakes2[-1][1] == bolt[1]) or (snakes2[-1][0] == bolt2[0] and snakes2[-1][1] == bolt2[1]):
                 if snakes2[-1][0] == bolt[0]:
@@ -656,6 +673,9 @@ class snake_game():
                     if len(snakes2) > 1:
                         snakes2.pop(0)
                 score2 -= 5
+                pygame.mixer.music.load(r"D:\vscode\snake.io\\8bit_bomb_explosion.wav")  
+                pygame.mixer.music.play(1)
+                
             for i in range(len(snakes) -1):
                 if snakes2[-1][0] == snakes[i][0] and snakes2[-1][1] == snakes[i][1]:
                     if len(snakes2) > 1:
@@ -680,10 +700,10 @@ class snake_game():
                 screen.blit(game_over, (800, 70))
                 pause2 = True
             
-            
             if pause == True and pause2 == True:
                 game_continue = font_big.render("press space to continue ", True, WHITE)
                 screen.blit(game_continue, (400, 500))
+                pygame.mixer.music.pause()
                 
             if pause == False and is_frozen1 == False and paralyse1 == False:     
                 if direction == "right":
@@ -712,9 +732,7 @@ class snake_game():
                 if direction2 == "Down":
                     snakes2.append([snakes2[-1][0], snakes2[-1][1]+1])
                     snakes2.pop(0)
-            
-            
-            
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -750,6 +768,9 @@ class snake_game():
                         freeze2 = [randint(0, 39), randint(0, 29)]
                         bolt = [randint(0, 39), randint(0, 29)]
                         bolt2 = [randint(0, 39), randint(0, 29)]
+                        pygame.mixer.music.play(-1)
+                        direction = "right"
+                        direction2 = "Right"
                 
             pygame.display.flip()
             
@@ -884,7 +905,7 @@ class graph_3D():
 class colorpicker():
     def open_picker():
         cp_window = tkinter.Toplevel()
-        cp_window.title("color tools")
+        cp_window.title("color studio")
         cp_window.geometry("1000x650")
         cp_window.configure(bg="#2c3e50")
 
@@ -937,7 +958,7 @@ class colorpicker():
 
 root = tkinter.Tk()
 root.title("Main Menu")
-root.attributes('-zoomed', True)
+root.state("zoomed")
                     
 def set_dynamic_background(root_window, image_path):
     try:
